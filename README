@@ -1,0 +1,16 @@
+### BUILD ###
+adjust camera_number in missile.cpp
+make all
+# build with g++ instead of clang++
+# 1) change CXX from clang++ to g++
+# 2) remove warning flags -W*
+# 3) build
+
+### RUN ###
+make sure your camera and missile launcher are connected
+make sure that you have the necessary privileges to access camera and launcher (eg use sudo)
+in case you use sudo: make sure, that root is allowed to display windows in your x-session (eg xhost +localhost)
+run ./USBMissile
+
+### ABORT ###
+focus camera window and press ESC
