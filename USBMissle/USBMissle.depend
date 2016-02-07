@@ -1,0 +1,131 @@
+# depslib dependency file v1.0
+1450106053 source:/home/philipp/Desktop/USBMissile/missile.cpp
+	"missile.hpp"
+
+1394434777 /home/philipp/Desktop/USBMissile/missile.hpp
+	<iostream>
+	<string>
+	"missile_control.hpp"
+
+1450105249 /home/philipp/Desktop/USBMissile/missile_control.hpp
+	<thread>
+	<libusb-1.0/libusb.h>
+	<opencv.hpp>
+	<unistd.h>
+	<iostream>
+	<stdlib.h>
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/video/tracking.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"servoDevice.hpp"
+
+1452350752 source:/home/philipp/Desktop/USBMissile/missile_control.cpp
+	"missile_control.hpp"
+
+1452089388 /home/philipp/Desktop/USBMissile/servoDevice.hpp
+	<fcntl.h>
+	<stdio.h>
+	<unistd.h>
+	<termios.h>
+	<vector>
+	<iostream>
+
+1452089476 source:/home/philipp/Desktop/USBMissile/servoDevice.cpp
+	"servoDevice.hpp"
+
+1452875266 source:/home/dennis/Documents/USBMissile/missile.cpp
+	"missile.hpp"
+
+1394434778 /home/dennis/Documents/USBMissile/missile.hpp
+	<iostream>
+	<string>
+	"missile_control.hpp"
+
+1454586578 /home/dennis/Documents/USBMissile/missile_control.hpp
+	<thread>
+	<libusb-1.0/libusb.h>
+	<opencv.hpp>
+	<unistd.h>
+	<iostream>
+	<stdlib.h>
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/video/tracking.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"servoDevice.hpp"
+
+1454536440 /home/dennis/Documents/USBMissile/servoDevice.hpp
+	<fcntl.h>
+	<stdio.h>
+	<unistd.h>
+	<termios.h>
+	<vector>
+	<iostream>
+
+1452876316 source:/home/dennis/Documents/USBMissile/missile_control.cpp
+	"missile_control.hpp"
+
+1454536704 source:/home/dennis/Documents/USBMissile/servoDevice.cpp
+	"servoDevice.hpp"
+
+1397211326 /home/dennis/opencv-2.4.9/include/opencv2/opencv.hpp
+	"opencv2/core/core_c.h"
+	"opencv2/core/core.hpp"
+	"opencv2/flann/miniflann.hpp"
+	"opencv2/imgproc/imgproc_c.h"
+	"opencv2/imgproc/imgproc.hpp"
+	"opencv2/photo/photo.hpp"
+	"opencv2/video/video.hpp"
+	"opencv2/features2d/features2d.hpp"
+	"opencv2/objdetect/objdetect.hpp"
+	"opencv2/calib3d/calib3d.hpp"
+	"opencv2/ml/ml.hpp"
+	"opencv2/highgui/highgui_c.h"
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/contrib/contrib.hpp"
+
+1454533102 source:/home/dennis/Documents/USBMissile (copy)/servoDevice.cpp
+	"servoDevice.hpp"
+
+1454532840 /home/dennis/Documents/USBMissile (copy)/servoDevice.hpp
+	<fcntl.h>
+	<stdio.h>
+	<unistd.h>
+	<termios.h>
+	<vector>
+	<iostream>
+
+1454679331 source:/home/dennis/Documents/USBMissile (copy)/camera_thread.cpp
+	"missile_control.hpp"
+	<opencv.hpp>
+
+1454615769 /home/dennis/Documents/USBMissile (copy)/missile_control.hpp
+	<thread>
+	<libusb-1.0/libusb.h>
+	<opencv.hpp>
+	<unistd.h>
+	<iostream>
+	<stdlib.h>
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/video/tracking.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"servoDevice.hpp"
+
+1454676037 source:/home/dennis/Documents/USBMissile (copy)/control_launcher_thread.cpp
+	"missile_control.hpp"
+	<opencv.hpp>
+
+1454675989 source:/home/dennis/Documents/USBMissile (copy)/detect_thread.cpp
+	"missile_control.hpp"
+	<opencv.hpp>
+
+1454608931 source:/home/dennis/Documents/USBMissile (copy)/missile.cpp
+	"missile.hpp"
+
+1394431176 /home/dennis/Documents/USBMissile (copy)/missile.hpp
+	<iostream>
+	<string>
+	"missile_control.hpp"
+
+1454675707 source:/home/dennis/Documents/USBMissile (copy)/missile_control.cpp
+	"missile_control.hpp"
+

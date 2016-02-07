@@ -1,5 +1,5 @@
-#ifndef missile_control_hpp
-#define missile_control_hpp
+#ifndef _MISSILE_CONTROL_HPP_
+#define _MISSILE_CONTROL_HPP_
 
 #include <thread>
 #include <libusb-1.0/libusb.h>
@@ -17,7 +17,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 
 
-// servo device
+// servo device which is in a subfolder for further reference
 #include "servoDevice.hpp"
 
 
@@ -35,7 +35,6 @@ class missile_control {
 
 		int defend();
 	private:
-		bool led_is_on;
 		int frame_counter, frame_analyzed_counter, frame_analyzed, camera_number, camera_width, camera_height;
 		cv::Point camera_center;
 		char last_command = 'x';
@@ -61,15 +60,19 @@ class missile_control {
 		std::vector<cv::Rect> rectangles_to_draw;
 		cv::CascadeClassifier det;
 
+		//face detection parameters
+		int minimumNeighboursFaceDetection;
+		float scaleFactorFaceDetection;
+
         //openCV Path goes here
-		std::string frontal_face_xml = "/home/philipp/opencv-2.4.9/data/haarcascades/haarcascade_frontalface_default.xml";
+		std::string frontal_face_xml = "/home/dennis/opencv-2.4.9/data/haarcascades/haarcascade_frontalface_default.xml";
 
 		//pthread
-		pthread_t camera_thread, detect_and_control_thread, control_launcher_thread;
+		pthread_t camera_thread, detect_thread, control_launcher_thread;
 		pthread_mutex_t mutex_mat_frame, mutex_vector_rectangles_to_draw, mutex_face_detected;
 
 		//Launcher control
-		int control_launcher();
+		int find_and_predict_best_face();
 		int move_launcher(char, int);
 		int park_launcher();
 		int send_command(char);
@@ -81,10 +84,11 @@ class missile_control {
 		libusb_device_handle *dev_handle;
 		bool kernel_driver_active = false;
 
-		//kalmanfilter
+		//init Kalman
+		cv::KalmanFilter KF;
+		cv::Mat_<float> measurement;
 
-        //Mat_<float> state(4, 1); // (x, y, Vx, Vy)
-
+		//kalmanfilter and further control mechanisms
 		void kalmanInit(float x, float y);
 		Point kalmanPredict();
 		Point kalmanCorrect(float x, float y);
@@ -102,4 +106,4 @@ class missile_control {
 
 };
 
-#endif
+#endif	//_MISSILE_CONTROL_HPP_

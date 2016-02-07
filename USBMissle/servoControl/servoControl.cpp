@@ -1,23 +1,21 @@
 // Uses POSIX functions to send and receive data from a Maestro.
 // NOTE: The Maestro's serial mode must be set to "USB Dual Port".
-// NOTE: You must change the 'const char * device' line below if you want to swap systems.
+// NOTE: You must change the 'const char * device' line below.
 // For further information you can look up the user manual for the Micro Maestro 6-channel at servocity.com
 
-#include "servoDevice.hpp"
+#include "servoControl.h"
 
 servoDevice::servoDevice(void) {
 	//Open the Maestro's virtual COM port.
-	// change here according to your device's ID (view in hardware manager)
-	// If you dont know how that works --> Maestro User Guide
 	const char *device = "/dev/ttyACM0"; //Linux
-	//if you are a Windows user, you can use "\\\\.\\USBSER000". This solution is not checked though
+	//if you are a Windows (wo)man you can use "\\\\.\\USBSER000". This solution is not checked though
+	
 	fd = open(device, O_RDWR | O_NOCTTY);
 	if (fd == -1) {
 		perror(device);
 	}
 }
 
-// on destructor call the file stream should close and the device goes back into an upright position
 servoDevice::~servoDevice(void) {
 	resetPosition();
 	close(fd);
@@ -37,7 +35,7 @@ void servoDevice::setSpeed(std::vector<int> speed) {
 //set Speed from 0 to 255. 0 is no limitation
 void servoDevice::setSpeed(int speedX, int speedY) {
 	this->maestroSetSpeed(0, speedX);
-	this->maestroSetSpeed(1, speedY);
+	this->maestroSetSpeed(1, speedY);	
 }
 
 //values between 3968 and 8000 are valid
@@ -47,23 +45,13 @@ void servoDevice::setPosition(std::vector<int> pos) {
 	} else {
 		this->maestroSetTarget(0, pos[0]);
 		this->maestroSetTarget(1, pos[1]);
-
 	}
 }
 
-//get XY Coord.
-std::vector<int> servoDevice::getPosition(){
-        std::vector<int> pos (2,0);
-        pos[0]= this->maestroGetPosition(0);
-        pos[1]= this->maestroGetPosition(1);
-
-        return pos;
-
-}
 //values between 3968 and 8000 are valid
 void servoDevice::setPosition(int posX, int posY) {
 	this->maestroSetTarget(0, posX);
-	this->maestroSetTarget(1, posY);
+	this->maestroSetTarget(1, posY);	
 }
 
 // Gets the position of a Maestro channel.
@@ -79,8 +67,7 @@ int servoDevice::maestroGetPosition(unsigned char channel) {
 		perror("error reading at maestroGetPosition\n");
 		return -1;
 	}
-    // to keep it simple: the "answer" is in 2 slices, with the first part being
-    // the lower bits, and the latter one the higher bits. Don't get confused by the magic.
+	
 	return response[0] + 256 * response[1];
 }
 
@@ -102,7 +89,6 @@ int servoDevice::maestroSetSpeed(unsigned char channel, unsigned short speed) {
 		perror("error: set a correct speed\n");
 		return -1;
 	}
-	// transformation part into 2 slices (see GetPosition)
 	unsigned char command[] = {0x87, channel, speed & 0x7F, speed >> 7 & 0x7F};
 	if (write(fd, command, sizeof(command)) == -1) {
 		perror("error writing the speed\n");
@@ -111,43 +97,35 @@ int servoDevice::maestroSetSpeed(unsigned char channel, unsigned short speed) {
 	return 0;
 }
 
-/* assume the center at (6000, 6000).
-   relevant not only for the startup-process, but the reset will be called
-   if the kalman filter drifts off
-*/
 void servoDevice::resetPosition(void) {
 	maestroSetTarget(0, 6000);
 	maestroSetTarget(1, 6000);
 }
-/*
 
-    // this was an early test for the functionality of the servo control. If you want to test your setup feel free to use it.
 int main() {
-
-
+	
+	
 	// channel 0 is for vertical rotation, channel 1 for horizontal rotation
 	// theoretically a 2-axis rotation at the same time should be possible, but currently we'd have to wait for the return of one function
 	// should be implemented with pthreads or something similar
 	servoDevice *device = new servoDevice();
-	std::cout << "test"<< std::endl;
-
+	
 	device->setSpeed(5,5);
 	device->setPosition(4000, 4000);
 	sleep(2);
 	std::vector<int> *test = new std::vector<int>();
 	test->push_back(40);
 	test->push_back(40);
-	//device->setSpeed(*test);
+	device->setSpeed(*test);
 	test->at(0) = 8000;
 	test->at(1) = 8000;
 	device->setPosition(*test);
-    	sleep(10);
+	
 	delete test;
 	delete device;
-
 	return 1;
 }
-*/
+
 
 
 
